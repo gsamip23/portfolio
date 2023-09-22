@@ -7,13 +7,19 @@ import UnoCSS from "@unocss/astro";
 import solidJs from "@astrojs/solid-js";
 
 // https://astro.build/config
-export default {
-  // Specify the adapter (e.g., static, node)
-  // adapter: Node(),
-
-  // Define your project's routes
-  // routes: {
-  //   '/': 'src/routes/index.astro',
-  //   '/about': 'src/routes/about.astro',
-  // },
-};
+export default defineConfig({
+    site: "https://gianmarco.xyz/",
+    integrations: [
+        sitemap(),
+        robotsTxt({
+            sitemap: [
+                "https://gianmarco.xyz/sitemap-index.xml",
+                "https://gianmarco.xyz/sitemap-0.xml",
+            ],
+        }),
+        solidJs(),
+        UnoCSS({ injectReset: true }),
+    ],
+    output: "server",
+    adapter: netlify(),
+});
